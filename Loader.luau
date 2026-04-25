@@ -32,7 +32,7 @@ if Abysall.Environment.writefile and Abysall.Environment.readfile then
         local Data = {
             TotalExecutions = 0
         }
-        Abysall.Environment.writefile("Abysall/UserData.json", Services.HttpService:JSONEncode(Data)
+        Abysall.Environment.writefile("Abysall/UserData.json", Services.HttpService:JSONEncode(Data))
     end
 
     local UserData = Abysall.Environment.readfile("Abysall/UserData.json")
@@ -40,7 +40,7 @@ if Abysall.Environment.writefile and Abysall.Environment.readfile then
     Decoded.TotalExecutions = Decoded.TotalExecutions + 1
     Abysall.TotalExecutions = Decoded.TotalExecutions
 
-    Abysall.Environment.writefile("Abysall/UserData.json", Services.HttpService:JSONEncode(Decoded)
+    Abysall.Environment.writefile("Abysall/UserData.json", Services.HttpService:JSONEncode(Decoded))
 end
 
 local Success, Result = pcall(function()
