@@ -2,9 +2,9 @@ return function(Window)
     local LatestChangelog = {
         "25/04/2026",
         "[ DOORS ]",
-        "<font color='rgb(0, 255, 0)'>+ Added loading screen</font>",
-        "<font color='rgb(0, 255, 0)'>+ Added Info tab</font>",
-        "<font color='rgb(0, 255, 0)'>+ Fixed several bugs</font>"
+        "<font color='rgb(0, 255, 0)'>+ Added Loading Screen</font>",
+        "<font color='rgb(0, 255, 0)'>+ Added Info Tab</font>",
+        "<font color='rgb(0, 255, 0)'>+ Fixed Several Bugs</font>"
     }
 
     local function CloneReference(Object)
@@ -45,8 +45,13 @@ return function(Window)
     User:AddLabel("ID: " .. LocalPlayer.Name, true)
     User:AddLabel("Total Executions: " .. (Abysall.TotalExecutions and Abysall.TotalExecutions or "N/A"), true)
 
+    local Changelog = InfoTab:AddRightGroupbox("Changelog")
+    for Index, Change in pairs(LatestChangelog) do
+        Changelog:AddLabel(Change, true)
+    end
+
     local Name, Version = Abysall.Environment.identifyexecutor()
-    local Executor = InfoTab:AddLeftGroupbox("Executor Info")
+    local Executor = InfoTab:AddRightGroupbox("Executor Info")
     Executor:AddLabel("Name: " .. Name, true)
     Executor:AddLabel("Version: " .. (Version and Version or "N/A"), true)
     Executor:AddDivider()
@@ -55,12 +60,7 @@ return function(Window)
         Executor:AddLabel(Result, true)
     end
 
-    local Changelog = InfoTab:AddRightGroupbox("Changelog")
-    for Index, Change in pairs(LatestChangelog) do
-        Changelog:AddLabel(Change, true)
-    end
-
-    local Community = InfoTab:AddRightGroupbox("Community")
+    local Community = InfoTab:AddLeftGroupbox("Community")
     Community:AddButton("Copy Discord Invite", function()
 	    toclipboard("https://discord.gg/5jwbZcqjVF")
 	    Library:Notify("Discord invite copied.")
