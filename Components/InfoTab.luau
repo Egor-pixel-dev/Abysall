@@ -2,11 +2,10 @@ return function(Window)
     local LatestChangelog = {
         "25/04/2026",
         "[ DOORS ]",
-        "<font color='rgb(0, 255, 0)'>+ Added Loading Screen</font>",
-        "<font color='rgb(0, 255, 0)'>+ Added Info Tab</font>",
-		"<font color='rgb(0, 255, 0)'>+ Added Remove Footstep Sounds</font>",
-        "<font color='rgb(0, 255, 0)'>+ Fixed Several Bugs</font>",
-		"<font color='rgb(0, 255, 0)'>+ Fixed Unloading</font>"
+        "<font color='rgb(0, 255, 0)'>+ Fixed Loading on Xeno</font>",
+        "<font color='rgb(0, 255, 0)'>+ Added Text Transparency Slider</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added Text Outlne Transparency Slider</font>",
+        "<font color='rgb(0, 255, 0)'>+ Improved Unloading</font>",
     }
 
     local function CloneReference(Object)
