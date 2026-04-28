@@ -3415,7 +3415,7 @@ local MainHook
 if Functions.CheckCompatability({"hookmetamethod", "newcclosure", "getnamecallmethod"}) then
     MainHook = Abysall.Environment.hookmetamethod(game, "__namecall", Abysall.Environment.newcclosure(function(self, ...)
         local Args = {...}
-        if Abysall then
+        if Abysall and Abysall.Environment then
             local Method = Abysall.Environment.getnamecallmethod()
 
             if self.Name == "Crouch" and Method == "FireServer" and Toggles.CrouchSpoof.Value or self.Name == "Crouch" and Method == "FireServer" and Toggles.PositionSpoof.Value then
