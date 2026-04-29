@@ -40,6 +40,10 @@ if Abysall.Environment.writefile and Abysall.Environment.readfile then
     local Decoded = Services.HttpService:JSONDecode(UserData)
     Decoded.TotalExecutions = Decoded.TotalExecutions + 1
 
+    if not Decoded.UILibrary then
+        Decoded.UILibrary = "Obsidian"
+    end
+
     Abysall.TotalExecutions = Decoded.TotalExecutions
     Abysall.UILibrary = Decoded.UILibrary
 
