@@ -38,6 +38,10 @@ if Abysall.Environment.writefile and Abysall.Environment.readfile then
 
     local UserData = Abysall.Environment.readfile("Abysall/UserData.json")
     local Decoded = Services.HttpService:JSONDecode(UserData)
+    if not Decoded.TotalExecutions then
+        Decoded.TotalExecutions = 0    
+    end
+
     Decoded.TotalExecutions = Decoded.TotalExecutions + 1
 
     if not Decoded.UILibrary then
