@@ -206,9 +206,9 @@ Functions.CheckElevators = function()
 		return
 	end
 	local TargetCharacter
-	if typeof(Options.AutoJoinElevatorTarget) == "Instance" then
+	if typeof(Options.AutoJoinElevatorTarget.Value) == "Instance" then
 		TargetCharacter = Options.AutoJoinElevatorTarget.Value.Character
-	elseif typeof(Options.AutoJoinElevatorTarget) == "string" then
+	elseif typeof(Options.AutoJoinElevatorTarget.Value) == "string" then
 		TargetCharacter = Services.Players:FindFirstChild(Options.AutoJoinElevatorTarget.Value).Character
 	end
 
@@ -270,7 +270,7 @@ Groupboxes.General_Self:AddDropdown("AutoJoinElevatorTarget", {
     Searchable = true
 })
 
-Groupboxes.General_Automation = Tabs.General:AddRightGroupbox("Automation")
+Groupboxes.General_Automation = Tabs.General:AddLeftGroupbox("Automation")
 
 Groupboxes.General_Automation:AddToggle("CycleAchievements", {
     Text = "Cycle Achievements",
@@ -347,10 +347,204 @@ Connections.MainConnection = Services.RunService.Heartbeat:Connect(function()
 	end
 end)
 
-Abysall.Interface.ApplySettingsTab(Window)
+Groupboxes.General_QuickPlay = Tabs.General:AddRightGroupbox("Quick Play")
+
+Groupboxes.General_QuickPlay:AddButton({
+	Text = "The Hotel",
+	DoubleClick = false,
+	Func = function()
+		RemotesFolder.CreateElevator:FireServer({
+        	Mods = {},
+        	Settings = {},
+        	Destination = "Hotel",
+        	FriendsOnly = false,
+        	MaxPlayers = "1"
+    	})
+	end
+})
+
+Groupboxes.General_QuickPlay:AddButton({
+	Text = "The Mines",
+	DoubleClick = false,
+	Func = function()
+		RemotesFolder.CreateElevator:FireServer({
+        	Mods = {},
+        	Settings = {},
+        	Destination = "Mines",
+        	FriendsOnly = false,
+        	MaxPlayers = "1"
+    	})
+	end
+})
+
+Groupboxes.General_QuickPlay:AddButton({
+	Text = "The Backdoor",
+	DoubleClick = false,
+	Func = function()
+		RemotesFolder.CreateElevator:FireServer({
+        	Mods = {},
+        	Settings = {},
+        	Destination = "Backdoor",
+        	FriendsOnly = false,
+        	MaxPlayers = "1"
+    	})
+	end
+})
+
+Groupboxes.General_QuickPlay:AddButton({
+	Text = "The Rooms",
+	DoubleClick = false,
+	Func = function()
+		RemotesFolder.CreateElevator:FireServer({
+        	Mods = {},
+        	Settings = {},
+        	Destination = "Rooms",
+        	FriendsOnly = false,
+        	MaxPlayers = "1"
+    	})
+	end
+})
+
+Groupboxes.General_QuickPlay:AddButton({
+	Text = "The Outdoors",
+	DoubleClick = false,
+	Func = function()
+		RemotesFolder.CreateElevator:FireServer({
+        	Mods = {},
+        	Settings = {},
+        	Destination = "Garden",
+        	FriendsOnly = false,
+        	MaxPlayers = "1"
+    	})
+	end
+})
+
+Groupboxes.General_QuickPlay:AddDivider()
+
+Groupboxes.General_QuickPlay:AddButton({
+	Text = "Battle Mode",
+	DoubleClick = false,
+	Func = function()
+		RemotesFolder.CreateElevator:FireServer({
+        	Mods = {},
+        	Settings = {},
+        	Destination = "Party",
+        	FriendsOnly = false,
+        	MaxPlayers = "1"
+    	})
+	end
+})
+
+Groupboxes.General_QuickPlay:AddButton({
+	Text = "Retro Mode",
+	DoubleClick = false,
+	Func = function()
+		RemotesFolder.CreateElevator:FireServer({
+        	Mods = {},
+        	Settings = {},
+        	Destination = "Retro",
+        	FriendsOnly = false,
+        	MaxPlayers = "1"
+    	})
+	end
+})
+
+Groupboxes.General_QuickPlay:AddButton({
+	Text = "Rush Mode",
+	DoubleClick = false,
+	Func = function()
+		RemotesFolder.CreateElevator:FireServer({
+        	Mods = {},
+        	Settings = {},
+        	Destination = "Fools26",
+        	FriendsOnly = false,
+        	MaxPlayers = "1"
+    	})
+	end
+})
+
+Groupboxes.General_QuickPlay:AddDivider()
+
+Groupboxes.General_QuickPlay:AddButton({
+	Text = "Halloween",
+	DoubleClick = false,
+	Func = function()
+		RemotesFolder.CreateElevator:FireServer({
+        	Mods = {},
+        	Settings = {},
+        	Destination = "Halloween25",
+        	FriendsOnly = false,
+        	MaxPlayers = "1"
+    	})
+	end
+})
+
+Groupboxes.General_QuickPlay:AddButton({
+	Text = "Hotel-",
+	DoubleClick = false,
+	Func = function()
+		RemotesFolder.CreateElevator:FireServer({
+        	Mods = {},
+        	Settings = {},
+        	Destination = "BeforePlus",
+        	FriendsOnly = false,
+        	MaxPlayers = "1"
+    	})
+	end
+})
+
+Groupboxes.General_QuickPlay:AddButton({
+	Text = "Super Hard Mode",
+	DoubleClick = false,
+	Func = function()
+		RemotesFolder.CreateElevator:FireServer({
+        	Mods = {},
+        	Settings = {},
+        	Destination = "SuperHardMode",
+        	FriendsOnly = false,
+        	MaxPlayers = "1"
+    	})
+	end
+})
+
+Groupboxes.General_QuickPlay:AddDivider()
+
+Groupboxes.General_QuickPlay:AddButton({
+	Text = "The Rooms [Free, No Progress]",
+	DoubleClick = false,
+	Func = function()
+		RemotesFolder.CreateElevator:FireServer({
+        	Mods = {
+				"AdminPanel"
+			},
+        	Settings = {},
+        	Destination = "Rooms",
+        	FriendsOnly = false,
+        	MaxPlayers = "1"
+    	})
+	end
+})
+
+Groupboxes.General_QuickPlay:AddButton({
+	Text = "The Outdoors [Free, No Progress]",
+	DoubleClick = false,
+	Func = function()
+		RemotesFolder.CreateElevator:FireServer({
+        	Mods = {
+				"AdminPanel"
+			},
+        	Settings = {},
+        	Destination = "Garden",
+        	FriendsOnly = false,
+        	MaxPlayers = "1"
+    	})
+	end
+})
+
 Library:OnUnload(function()
     Connections.MainConnection:Disconnect()
 	getgenv().Abysall = nil
 end)
 
+Abysall.Interface.ApplySettingsTab(Window)
 Functions.Notify({Title = "Successfully loaded in " .. math.floor((tick() - LoadStart) * 1000) / 1000 .. " seconds."})
