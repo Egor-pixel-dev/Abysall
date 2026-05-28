@@ -6,6 +6,8 @@ local Passed = 0
 
 local BrokenFeatures = {
     ["Volcano"] = {"run_on_actor", "oth"},
+	["Volt"] = {"isnetworkowner"},
+	["Potassium"] = {"isnetworkowner"},
     ["Solara"] = {"require"},
     ["Xeno"] = {"require"}
 }
