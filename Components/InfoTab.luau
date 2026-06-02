@@ -1,13 +1,8 @@
 return function(Window)
     local LatestChangelog = {
-        "30/5/2026",
-        "<font color='rgb(0, 255, 0)'>+ Added Third Person Wall Check</font>",
-		"<font color='rgb(0, 255, 0)'>+ Added Viewmodel Offset</font>",
-		"<font color='rgb(0, 255, 0)'>+ Added Doors Notifictaion Style</font>",
-		"<font color='rgb(0, 255, 0)'>+ Added Cringle Presents to Objective ESP</font>",
-		"<font color='rgb(0, 255, 0)'>+ Greatly Improved Auto Interact on Bad Executors (Like Xeno)</font>",
-		"<font color='rgb(0, 255, 0)'>+ Fixed Unloading (Hopefully)</font>",
-		"<font color='rgb(0, 255, 0)'>+ Other Small Improvements</font>",
+        "02/6/2026",
+        "<font color='rgb(0, 255, 0)'>+ Added Keep Notifications</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added Rush Mode Closet to Hiding Spot ESP</font>",
     }
 
     local function CloneReference(Object)
@@ -72,5 +67,9 @@ return function(Window)
     Community:AddButton("Copy Discord Invite", function()
 	    toclipboard("https://discord.gg/5jwbZcqjVF")
 	    Library:Notify("Discord invite copied.")
+    end)
+	Community:AddButton("Copy Youtube Channel", function()
+	    toclipboard("https://youtube.com/channel/UCo4LwRkDBdVKmQAwHYdLRiA")
+	    Library:Notify("Youtube channel copied.")
     end)
 end
