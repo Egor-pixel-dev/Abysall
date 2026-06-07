@@ -1,55 +1,87 @@
 -- Components/Interface.luau
 local maclib = loadstring(game:HttpGet("https://github.com/biggaboy212/Maclib/releases/latest/download/maclib.txt"))()
-local Window = maclib:Window({Title = "Abysall Hub", Subtitle = "Doors", DragStyle = 1})
-local tabGroup = Window:TabGroup()
 
--- Таблица для "магического" создания секций
-local Tabs = {}
-
-local function CreateAdapter(macSection)
+-- Адаптер для контролов (Toggle, Slider и т.д.)
+local function ControlAdapter(macSection)
     return {
         AddToggle = function(self, id, args)
-            macSection:Toggle({Name = args.Text, Default = args.Default, Callback = function(v) if args.OnChanged then args.OnChanged(v) end end})
+            local item = {Value = args.Default}
+            local toggle = macSection:Toggle({Name = args.Text, Default = args.Default, Callback = function(v) 
+                item.Value = v
+                if args.Callback then args.Callback(v) end
+                if args.OnChanged then args.OnChanged(v) end
+            end})
+            getgenv().Toggles[id] = item
+            local mt = {AddKeyPicker = function(s, kid, kargs) return end, AddColorPicker = function(s, cid, cargs) return end}
+            return setmetatable(item, {__index = mt})
         end,
         AddSlider = function(self, id, args)
-            macSection:Slider({Name = args.Text, Min = args.Min, Max = args.Max, Default = args.Default, Callback = function(v) if args.Callback then args.Callback(v) end end})
+            local item = {Value = args.Default}
+            macSection:Slider({Name = args.Text, Min = args.Min, Max = args.Max, Default = args.Default, Callback = function(v) 
+                item.Value = v
+                if args.Callback then args.Callback(v) end
+                if args.OnChanged then args.OnChanged(v) end
+            end})
+            getgenv().Options[id] = item
+            return item
         end,
         AddButton = function(self, args)
             macSection:Button({Name = args.Text, Callback = args.Func})
         end,
         AddDropdown = function(self, id, args)
-            macSection:Dropdown({Name = args.Text, Options = args.Values, Default = args.Default, Callback = args.Callback})
+            local item = {Value = args.Default}
+            macSection:Dropdown({Name = args.Text, Options = args.Values, Default = args.Default, Callback = function(v) 
+                item.Value = v
+                if args.Callback then args.Callback(v) end
+            end})
+            getgenv().Options[id] = item
+            return item
+        end,
+        AddInput = function(self, id, args)
+            macSection:Input({Name = args.Text, Placeholder = args.Placeholder, Callback = args.OnChanged})
         end,
         AddDivider = function(self) end,
-        AddLabel = function(self, text) end
+        AddLabel = function(self, text) macSection:Label(text) end
     }
 end
 
--- Адаптер для групп (Groupboxes)
-local GroupboxProxy = {}
-GroupboxProxy.__index = GroupboxProxy
+-- Адаптер для секций (Groupboxes)
+local function GroupboxAdapter(macTab)
+    return {
+        AddLeftGroupbox = function(self, name) 
+            local s = macTab:Section({Side = "Left"})
+            s:Header({Name = name})
+            return ControlAdapter(s)
+        end,
+        AddRightGroupbox = function(self, name) 
+            local s = macTab:Section({Side = "Right"})
+            s:Header({Name = name})
+            return ControlAdapter(s)
+        end,
+        AddLeftTabbox = function(self, name) return self:AddLeftGroupbox(name) end,
+        AddRightTabbox = function(self, name) return self:AddRightGroupbox(name) end,
+        AddTab = function(self, name) return self:AddLeftGroupbox(name) end
+    }
+end
 
--- Вот здесь магия: если вызывается AddToggle у Groupbox, мы делаем секцию на лету
-function GroupboxProxy:AddToggle(id, args) return CreateAdapter(self.Section):AddToggle(id, args) end
-function GroupboxProxy:AddSlider(id, args) return CreateAdapter(self.Section):AddSlider(id, args) end
-function GroupboxProxy:AddButton(args) return CreateAdapter(self.Section):AddButton(args) end
-function GroupboxProxy:AddDropdown(id, args) return CreateAdapter(self.Section):AddDropdown(id, args) end
-function GroupboxProxy:AddDivider() end
+-- Инициализация окна
+local Window = maclib:Window({Title = "Abysall Hub", Subtitle = "Doors", DragStyle = 1})
+local tabGroup = Window:TabGroup()
 
 return {
     Library = {
-        CreateWindow = function() return {
-            AddTab = function(self, name)
-                local tab = tabGroup:Tab({Name = name})
-                local section = tab:Section({Side = "Left"})
-                section:Header({Name = "General"})
-                return setmetatable({Section = section}, GroupboxProxy)
-            end,
-            Notify = function(d) maclib:Notification({Title = "Abysall", Description = d.Title or d.Body}) end
-        } end,
-        Toggles = getgenv().Toggles,
-        Options = getgenv().Options
+        CreateWindow = function(args)
+            return {
+                AddTab = function(self, name, icon)
+                    return WrapTab(tabGroup:Tab({Name = name, Image = icon}))
+                end,
+                Notify = function(d) maclib:Notification({Title = "Abysall", Description = d.Title or d.Body}) end,
+                Toggles = getgenv().Toggles,
+                Options = getgenv().Options
+            }
+        end,
+        ToggleKeybind = nil
     },
-    ApplyInfoTab = function() end,
-    ApplySettingsTab = function() end
+    ApplyInfoTab = function(win) end,
+    ApplySettingsTab = function(win) end
 }
